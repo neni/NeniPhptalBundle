@@ -1,0 +1,27 @@
+<?xml version="1.0" ?>
+<container xmlns="http://www.symfony-project.org/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.symfony-project.org/schema/dic/services http://www.symfony-project.org/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="neni_phptal.engine.class">Neni\PhptalBundle\PhptalEngine</parameter>
+        <parameter key="neni_phptal.helper.class">Neni\PhptalBundle\Phptal\PhptalHelper</parameter>
+        <parameter key="neni_phptal.options" type="collection"></parameter>
+    </parameters>
+
+    <services>
+    
+        <service id="templating.engine.phptal" class="%neni_phptal.engine.class%">
+            <tag name="templating.engine" alias="phptal" priority="300" />
+            <argument type="service" id="service_container" />
+            <argument type="service" id="templating.name_parser" />
+            <argument type="service" id="templating.loader" />
+            <argument>%neni_phptal.options%</argument>
+        </service>
+        
+        <service id="php_tal.extension.helper" class="%neni_phptal.helper.class%">
+            <tag name="templating.helper" alias="phptalhelper" />
+            <argument type="service" id="service_container" />
+        </service>
+         
+    </services>
+    
+</container>

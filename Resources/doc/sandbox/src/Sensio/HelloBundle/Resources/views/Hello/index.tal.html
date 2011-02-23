@@ -1,0 +1,14 @@
+<tal:block
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:tal="http://xml.zope.org/namespaces/tal"
+	xmlns:metal="http://xml.zope.org/namespaces/metal"
+	xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+	xmlns:phptal="http://phptal.org/ns/phptal">
+
+	<tal:block metal:use-macro="HelloBundle::layout.tal.html/layout">
+		<tal:block metal:fill-slot="content">
+			Bonjour <tal:block tal:content="name">inconnu</tal:block>
+		</tal:block>
+	</tal:block>
+
+</tal:block>
