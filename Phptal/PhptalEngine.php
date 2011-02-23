@@ -1,6 +1,6 @@
 <?php
 
-namespace Neni\PhptalBundle;
+namespace Neni\PhptalBundle\Phptal;
 
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,7 +15,7 @@ use Symfony\Component\Templating\TemplateNameParserInterface;
 use Neni\PhptalBundle\Phptal\PhptalHelper;
 
 // TODO: improve the loader 
-//require_once __DIR__. '/../../../vendor/Phptal-svn/classes/' .'PHPTAL.php';
+//require_once __DIR__. '../../../../vendor/Phptal-svn/classes/' .'PHPTAL.php';
 require_once 'PHPTAL.php';
 
 

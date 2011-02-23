@@ -23,8 +23,8 @@ class PhptalHelper extends Helper
         if($this->container->has('templating.helper.'.$name)){
             return $this->container->get('templating.helper.'.$name);
         // templating phptal helper
-        }elseif($this->container->has('php_tal.extension.'.$name)){
-            return $this->container->get('php_tal.extension.'.$name);
+        }elseif($this->container->has('php_tal.helper.'.$name)){
+            return $this->container->get('php_tal.helper.'.$name);
         // templating twig helper
         }elseif($this->container->has('twig.extension.'.$name)){
             return $this->container->get('twig.extension.'.$name);
