@@ -7,6 +7,7 @@ a simple and quikly TAL implementation for Symfony2.
 
 
 
+
 ## Installation
 
 
@@ -86,12 +87,13 @@ for helpers, use syntax php:Helper.get('helper_name').methode_name('parameters')
 ## Note
 
 the TAL example files for symfony-sandbox are in "src/Neni/PhptalBundle/Resources/doc/sandbox".
+
 Copy them and change in the controller '.html.twig' extension to '.tal.html'.
 
 
 
 
-## TO DO
+## To do
 
 - add configuration for PHPTal 
 - make tests suite

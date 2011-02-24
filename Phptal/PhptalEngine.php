@@ -11,6 +11,7 @@ use Symfony\Component\Routing\Router;
 use Symfony\Component\Templating\Loader\LoaderInterface;
 use Symfony\Component\Templating\Storage\FileStorage;
 use Symfony\Component\Templating\TemplateNameParserInterface;
+use Symfony\Bundle\FrameworkBundle\Templating\Loader\TemplateLocator;
 
 use Neni\PhptalBundle\Phptal\PhptalHelper;
 
@@ -31,16 +32,23 @@ class PhptalEngine implements EngineInterface, \PHPTAL_SourceResolver
     protected $extensions = array();
 
     
+    public function __construct(ContainerInterface $container, TemplateNameParserInterface $parser, TemplateLocator $locator, $options = array())
+    {
+        $this->container = $container;
+        $this->parser  = $parser;
+        $this->locator  = $locator;
+    }
+    /*
     public function __construct(ContainerInterface $container, TemplateNameParserInterface $parser, LoaderInterface $loader, $options = array())
     {
         $this->container = $container;
         $this->parser  = $parser;
         $this->loader = $loader;
     }
-
+	*/
     
     /**
-     * Loads the templates.
+     * Find the templates.
      * @param string $name A template name
      * @return PHPTAL_FileSource 
      * @throws \InvalidArgumentException if the template cannot be found
@@ -48,12 +56,20 @@ class PhptalEngine implements EngineInterface, \PHPTAL_SourceResolver
     public function resolve($name)
     {
        $source = $this->parser->parse($name);
-       $source = $this->loader->load($source);
-       if (false === $source) {
-           throw new \InvalidArgumentException(sprintf('The template "%s" does not exist.', $name));
+       //$source = $this->loader->load($source);
+       try{
+           $file = $this->locator->locate($source);
+       } catch (\InvalidArgumentException $e) {
+           $erreur = $e;
        }
-       return new \PHPTAL_FileSource( $source->__toString() );
+       //if (false === $source || null === $source) {
+       if (false === $file || null === $file) {
+           throw new \InvalidArgumentException(sprintf('The template "%s" does not exist.', $name, 0, null, $erreur));
+       }
+       //return new \PHPTAL_FileSource( $source->__toString() );
+       return new \PHPTAL_FileSource( $file );
     }
+    
     
     
     /**
@@ -75,8 +91,6 @@ class PhptalEngine implements EngineInterface, \PHPTAL_SourceResolver
         if(!is_dir($tmpdir)){mkdir($tmpdir);}
         $template->setPhpCodeDestination($tmpdir);
 
-        // SourceResolver
-        $template->addSourceResolver($this);
         
         // encoding
         $template->setEncoding( $this->container->getParameter('kernel.charset') );
@@ -90,6 +104,9 @@ class PhptalEngine implements EngineInterface, \PHPTAL_SourceResolver
         // todo
         //$template->setOutputMode($mode);
                 
+        
+        // SourceResolver
+        $template->addSourceResolver($this);
         
         // set source template 
         $template->setTemplate($name);
