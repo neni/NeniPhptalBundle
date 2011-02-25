@@ -4,7 +4,7 @@
     <parameters>
         <parameter key="neni_phptal.engine.class">Neni\PhptalBundle\Phptal\PhptalEngine</parameter>
         <parameter key="neni_phptal.helper.class">Neni\PhptalBundle\Phptal\PhptalHelper</parameter>
-        <parameter key="neni_phptal.options" type="collection"></parameter>
+        <!-- <parameter key="neni_phptal.options" type="collection"></parameter>  -->
     </parameters>
 
     <services>
@@ -17,6 +17,7 @@
             <argument type="service" id="templating.loader" />
            	 -->
             <argument type="service" id="templating.locator" />
+            <!-- <argument>%neni_phptal.options%</argument> -->
             <argument>%neni_phptal.options%</argument>
         </service>
         

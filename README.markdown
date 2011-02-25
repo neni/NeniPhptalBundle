@@ -1,11 +1,12 @@
 NeniPhptalBundle
-============
+================
 
-Renderer TAL in Symfony2 with PHPTAL.
+Renderer TAL in Symfony2 with [http://phptal.org/|PHPTAL].
 
-a simple and quikly TAL implementation for Symfony2.
+A simple TAL implementation for Symfony2.
 
 
+(configuration for fliters not implemented yet)
 
 
 ## Installation
@@ -59,7 +60,7 @@ add in file "app/AppKernel.php"
         }
 
 
-change in the configuration file (for exemple in "app/config/config.yml")
+change in the configuration file ("app/config/config.yml")
 
        framework:
              # ...
@@ -67,6 +68,20 @@ change in the configuration file (for exemple in "app/config/config.yml")
              #...
 
 
+       # Optional options 
+       
+       # neni_phptal: 
+           #charset:        "%framework.charset%"        # encodage
+           #output_mode: 	"XHTML"                      # XHTML, XML or HTML5
+           #cache_dir: 		"%kernel.cache_dir%/phptal"  # cache location
+           #cache_lifetime: 30                           # cache life time in days
+           #force_reparse:  false                        # force reparse (for debug pre_filter)
+           # configuration for filter not implemented
+           #pre_filter:
+           #     replace_toto_titi: { class:"Neni\PhptalBundle\Phptal\Filter", parametres:['toto','titi'] }
+           #post_filter:
+           #     replace_tata_tutu: { class:"Neni\PhptalBundle\Phptal\Filter\ReplaceString", parametres:['tata','tutu'] }
+           #     replace_tutu_tyty: { class:"Neni\PhptalBundle\Phptal\Filter\ReplaceString", parametres:['tutu','tyty'] }
 
 
 
@@ -95,10 +110,8 @@ Copy them and change in the controller '.html.twig' extension to '.tal.html'.
 
 ## To do
 
-- add configuration for PHPTal 
 - make tests suite
 - improve documentation
-- use symfony filestorage (?)
-- use symfony cache mechanism (?) 
+- use lazy loading and symfony cache mechanism 
 
 

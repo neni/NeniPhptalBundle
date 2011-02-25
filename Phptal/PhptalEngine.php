@@ -15,37 +15,27 @@ use Symfony\Bundle\FrameworkBundle\Templating\Loader\TemplateLocator;
 
 use Neni\PhptalBundle\Phptal\PhptalHelper;
 
-// TODO: improve the loader 
-//require_once __DIR__. '../../../../vendor/Phptal-svn/classes/' .'PHPTAL.php';
 require_once 'PHPTAL.php';
-
 
 
 class PhptalEngine implements EngineInterface, \PHPTAL_SourceResolver
 {
     protected $container;
     protected $parser;
-    protected $loader;
+    protected $locator;
+    protected $options;
 
-    protected $encoder;
+//    protected $encoder;
 
-    protected $extensions = array();
 
     
-    public function __construct(ContainerInterface $container, TemplateNameParserInterface $parser, TemplateLocator $locator, $options = array())
+    public function __construct(ContainerInterface $container, TemplateNameParserInterface $parser, TemplateLocator $locator, $options)
     {
         $this->container = $container;
-        $this->parser  = $parser;
-        $this->locator  = $locator;
+        $this->parser    = $parser;
+        $this->locator   = $locator;
+        $this->options   = $options;
     }
-    /*
-    public function __construct(ContainerInterface $container, TemplateNameParserInterface $parser, LoaderInterface $loader, $options = array())
-    {
-        $this->container = $container;
-        $this->parser  = $parser;
-        $this->loader = $loader;
-    }
-	*/
     
     /**
      * Find the templates.
@@ -56,17 +46,14 @@ class PhptalEngine implements EngineInterface, \PHPTAL_SourceResolver
     public function resolve($name)
     {
        $source = $this->parser->parse($name);
-       //$source = $this->loader->load($source);
        try{
            $file = $this->locator->locate($source);
        } catch (\InvalidArgumentException $e) {
            $erreur = $e;
        }
-       //if (false === $source || null === $source) {
        if (false === $file || null === $file) {
            throw new \InvalidArgumentException(sprintf('The template "%s" does not exist.', $name, 0, null, $erreur));
        }
-       //return new \PHPTAL_FileSource( $source->__toString() );
        return new \PHPTAL_FileSource( $file );
     }
     
@@ -86,44 +73,48 @@ class PhptalEngine implements EngineInterface, \PHPTAL_SourceResolver
 
         $template = new \PHPTAL();
 
-        // code destination
-        $tmpdir = $this->container->getParameter('kernel.cache_dir') . '/phptal';
+        // code cache destination
+        $tmpdir = $this->options['cache_dir'];
         if(!is_dir($tmpdir)){mkdir($tmpdir);}
         $template->setPhpCodeDestination($tmpdir);
-
+        
+        // code cache durration
+        $template->setCacheLifetime( $this->options['cache_lifetime'] );
         
         // encoding
-        $template->setEncoding( $this->container->getParameter('kernel.charset') );
+        $template->setEncoding( $this->options['charset'] );
         
+        // output mod
+        if($this->options['output_mode']=='XHTML'){
+            $template->setOutputMode( \PHPTAL::XHTML );
+        }elseif($this->options['output_mode']=='HTML5'){
+            $template->setOutputMode( \PHPTAL::HTML5 );
+        }elseif($this->options['output_mode']=='XML'){   
+            $template->setOutputMode( \PHPTAL::XML );
+        }else{
+           throw new \InvalidArgumentException('Unsupported output mode '.$this->options['output_mode']);
+        }
         
-        // TODO: add phptal options
+        // force reparse (for debug prefilter)
+        $template->setForceReparse( $this->options['force_reparse'] );
+        
         // debug mode
+        // .... 
         
-        //$template->setForceReparse(true);
-        
-        // todo
-        //$template->setOutputMode($mode);
-                
-        
-        // SourceResolver
+        // set SourceResolver
         $template->addSourceResolver($this);
         
         // set source template 
         $template->setTemplate($name);
         
         // set data
-        //$template->data = $parameters;  
         foreach ($parameters as $k=>$v){
           $template->$k = $v;
         }
         
-        // helpers
+        // helper
         $template->Helper = new PhptalHelper($this->container);
         
-        // globals environnement
-        //$template->Globals = new \Symfony\Bundle\TwigBundle\GlobalVariables($this->container);
-                
-        //
         try{
             $result = $template->execute();
         }catch (PHPTAL_TemplateException $e){
