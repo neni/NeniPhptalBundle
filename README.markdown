@@ -1,7 +1,7 @@
 NeniPhptalBundle
 ================
 
-Renderer TAL in Symfony2 with [http://phptal.org/|PHPTAL].
+Renderer TAL in Symfony2 with [PHPTAL](http://phptal.org/).
 
 A simple TAL implementation for Symfony2.
 
