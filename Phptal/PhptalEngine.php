@@ -69,7 +69,7 @@ class PhptalEngine implements EngineInterface, \PHPTAL_SourceResolver
      * @throws \InvalidArgumentException if the template does not exist
      * @throws \RuntimeException         if the template cannot be rendered
      */
-    public function render($name, array $parameters = array())
+    public function render($name, array $parameters = array(), $output_format=null)
     {
 
         $template = new \PHPTAL();
@@ -86,14 +86,17 @@ class PhptalEngine implements EngineInterface, \PHPTAL_SourceResolver
         $template->setEncoding( $this->options['charset'] );
         
         // output mod
-        if($this->options['output_mode']=='XHTML'){
+        if($output_format == null){ 
+           $output_format = $this->options['output_mode']; 
+        }
+        if($output_format=='XHTML'){
             $template->setOutputMode( \PHPTAL::XHTML );
-        }elseif($this->options['output_mode']=='HTML5'){
+        }elseif($output_format=='HTML5'){
             $template->setOutputMode( \PHPTAL::HTML5 );
-        }elseif($this->options['output_mode']=='XML'){   
+        }elseif($output_format=='XML'){   
             $template->setOutputMode( \PHPTAL::XML );
         }else{
-           throw new \InvalidArgumentException('Unsupported output mode '.$this->options['output_mode']);
+           throw new \InvalidArgumentException('Unsupported output mode '.$output_format);
         }
         
         // force reparse (for debug prefilter)
