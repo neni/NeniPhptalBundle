@@ -71,17 +71,18 @@ change in the configuration file ("app/config/config.yml")
        # Optional options 
        
        # neni_phptal: 
-           #charset:        "%framework.charset%"        # encodage
+           #charset:        "%kernel.charset%"           # encodage
            #output_mode: 	"XHTML"                      # XHTML, XML or HTML5
            #cache_dir: 		"%kernel.cache_dir%/phptal"  # cache location
            #cache_lifetime: 30                           # cache life time in days
-           #force_reparse:  false                        # force reparse (for debug pre_filter)
-           # configuration for filter not implemented
+           #force_reparse:  false                        # force reparse (for debugging pre_filter)
+           # Configuration for filters not implemented
            #pre_filter:
-           #     replace_toto_titi: { class:"Neni\PhptalBundle\Phptal\Filter", parametres:['toto','titi'] }
+           #     remove_comment:    [ class:"Neni\PhptalBundle\Phptal\Filter\RemoveComment" ]
+           #     replace_toto_titi: [ class:"Neni\PhptalBundle\Phptal\Filter\ReplaceString", arguments:['toto','titi'] ]
            #post_filter:
-           #     replace_tata_tutu: { class:"Neni\PhptalBundle\Phptal\Filter\ReplaceString", parametres:['tata','tutu'] }
-           #     replace_tutu_tyty: { class:"Neni\PhptalBundle\Phptal\Filter\ReplaceString", parametres:['tutu','tyty'] }
+           #     replace_tata_tutu: [ class:"Neni\PhptalBundle\Phptal\Filter\ReplaceString", arguments:['tata','tutu'] ]
+           #     replace_tutu_tyty: [ class:"Neni\PhptalBundle\Phptal\Filter\ReplaceString", arguments:['tutu','tyty'] ]
 
 
 

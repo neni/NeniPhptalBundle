@@ -16,7 +16,7 @@ class Configuration
     public function getConfigTree()
     {
         $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('neni_phptal', 'array');
+        $rootNode = $treeBuilder->root('tal', 'array');
 
         $rootNode->scalarNode('cache_warmer')->end();
 
@@ -66,7 +66,7 @@ class Configuration
             ->scalarNode('base_template_class')->end()
             ->scalarNode('cache_dir')
                 ->addDefaultsIfNotSet()
-                ->defaultValue('%kernel.cache_dir%/phptal')
+                ->defaultValue('%kernel.cache_dir%/tal')
             ->end()
             ->scalarNode('cache_lifetime')
                 ->addDefaultsIfNotSet()

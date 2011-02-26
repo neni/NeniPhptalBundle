@@ -13,9 +13,10 @@ use Symfony\Component\Templating\Storage\FileStorage;
 use Symfony\Component\Templating\TemplateNameParserInterface;
 use Symfony\Bundle\FrameworkBundle\Templating\Loader\TemplateLocator;
 
-use Neni\PhptalBundle\Phptal\PhptalHelper;
-
 require_once 'PHPTAL.php';
+
+use Neni\PhptalBundle\Phptal\TalHelper;
+
 
 
 class PhptalEngine implements EngineInterface, \PHPTAL_SourceResolver
@@ -113,7 +114,7 @@ class PhptalEngine implements EngineInterface, \PHPTAL_SourceResolver
         }
         
         // helper
-        $template->Helper = new PhptalHelper($this->container);
+        $template->Helper = new TalHelper($this->container);
         
         try{
             $result = $template->execute();
@@ -151,7 +152,7 @@ class PhptalEngine implements EngineInterface, \PHPTAL_SourceResolver
      */
     public function supports($name)
     {
-        return false !== strpos($name, '.tal.html');
+        return false !== strpos($name, '.tal');
     }
 
     

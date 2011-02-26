@@ -9,8 +9,8 @@
 
     <services>
     
-        <service id="templating.engine.phptal" class="%neni_phptal.engine.class%">
-            <tag name="templating.engine" alias="phptal" priority="300" />
+        <service id="templating.engine.tal" class="%neni_phptal.engine.class%">
+            <tag name="templating.engine" alias="tal" priority="300" />
             <argument type="service" id="service_container" />
             <argument type="service" id="templating.name_parser" />
             <!-- 
@@ -21,8 +21,8 @@
             <argument>%neni_phptal.options%</argument>
         </service>
         
-        <service id="php_tal.helper.helper" class="%neni_phptal.helper.class%">
-            <tag name="templating.helper" alias="phptalhelper" />
+        <service id="tal.helper.helper" class="%neni_phptal.helper.class%">
+            <tag name="templating.helper" alias="talhelper" />
             <argument type="service" id="service_container" />
         </service>
          

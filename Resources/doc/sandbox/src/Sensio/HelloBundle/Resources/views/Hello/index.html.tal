@@ -5,7 +5,7 @@
 	xmlns:i18n="http://xml.zope.org/namespaces/i18n"
 	xmlns:phptal="http://phptal.org/ns/phptal">
 
-	<tal:block metal:use-macro="HelloBundle::layout.tal.html/layout">
+	<tal:block metal:use-macro="HelloBundle::layout.html.tal/layout">
 		<tal:block metal:fill-slot="content">
 			Bonjour <tal:block tal:content="name">inconnu</tal:block>
 		</tal:block>

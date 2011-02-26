@@ -5,7 +5,7 @@
 	xmlns:i18n="http://xml.zope.org/namespaces/i18n"
 	xmlns:phptal="http://phptal.org/ns/phptal">
 
-	<tal:block metal:use-macro="::base.tal.html/all">
+	<tal:block metal:use-macro="::base.html.tal/all">
 		<tal:block metal:fill-slot="body">
         	<h1>Congratulations! (with phptpal)</h1>
         	<p>You have successfully created a new Symfony application.</p>

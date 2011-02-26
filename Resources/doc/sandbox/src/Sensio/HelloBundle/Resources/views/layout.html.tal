@@ -7,7 +7,7 @@
 
 	<tal:block metal:define-macro="layout">
 		<h1>Bonjour Application</h1>
-		<tal:block metal:use-macro="::base.tal.html/all">
+		<tal:block metal:use-macro="::base.html.tal/all">
 			<tal:block metal:fill-slot="body">
 				<tal:block metal:define-slot="content"></tal:block>
 			</tal:block>
