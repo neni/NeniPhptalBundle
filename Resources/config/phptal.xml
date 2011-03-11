@@ -1,31 +1,29 @@
-<?xml version="1.0" ?>
-<container xmlns="http://www.symfony-project.org/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.symfony-project.org/schema/dic/services http://www.symfony-project.org/schema/dic/services/services-1.0.xsd">
+<?xml version="1.0" encoding="UTF-8" ?>
 
-    <parameters>
-        <parameter key="neni_phptal.engine.class">Neni\PhptalBundle\Phptal\PhptalEngine</parameter>
-        <parameter key="neni_phptal.helper.class">Neni\PhptalBundle\Phptal\PhptalHelper</parameter>
-        <!-- <parameter key="neni_phptal.options" type="collection"></parameter>  -->
-    </parameters>
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
-    <services>
-    
-        <service id="templating.engine.tal" class="%neni_phptal.engine.class%">
-            <tag name="templating.engine" alias="tal" priority="300" />
-            <argument type="service" id="service_container" />
-            <argument type="service" id="templating.name_parser" />
-            <!-- 
-            <argument type="service" id="templating.loader" />
-           	 -->
-            <argument type="service" id="templating.locator" />
-            <!-- <argument>%neni_phptal.options%</argument> -->
-            <argument>%neni_phptal.options%</argument>
-        </service>
-        
-        <service id="tal.helper.helper" class="%neni_phptal.helper.class%">
-            <tag name="templating.helper" alias="talhelper" />
-            <argument type="service" id="service_container" />
-        </service>
-         
-    </services>
-    
+	<parameters>
+		<parameter key="neni_phptal.engine.class">Neni\PhptalBundle\Phptal\Engine</parameter>
+		<parameter key="neni_phptal.helper.class">Neni\PhptalBundle\Phptal\GenericHelper</parameter>
+	</parameters>
+
+	<services>
+
+		<service id="templating.engine.tal" class="%neni_phptal.engine.class%">
+			<tag name="templating.engine" alias="tal" priority="300" />
+			<argument type="service" id="service_container" />
+			<argument type="service" id="templating.name_parser" />
+			<argument type="service" id="templating.locator" />
+			<argument>%neni_phptal.options%</argument>
+		</service>
+
+		<service id="tal.helper.helper" class="%neni_phptal.helper.class%">
+			<tag name="templating.helper" alias="talhelper" />
+			<argument type="service" id="service_container" />
+		</service>
+
+	</services>
+
 </container>

@@ -5,8 +5,7 @@ Renderer TAL in Symfony2 with [PHPTAL](http://phptal.org/).
 
 A simple TAL implementation for Symfony2.
 
-
-(configuration for fliters not implemented yet)
+__working on a refactory of the code__
 
 
 ## Installation
@@ -68,9 +67,8 @@ change in the configuration file ("app/config/config.yml")
              #...
 
 
-       # Optional options 
-       
-       # neni_phptal: 
+       # Options 
+        neni_phptal: ~ 
            #charset:        "%kernel.charset%"           # encodage
            #output_mode: 	"XHTML"                      # XHTML, XML or HTML5
            #cache_dir: 		"%kernel.cache_dir%/phptal"  # cache location
@@ -104,7 +102,7 @@ for helpers, use syntax php:Helper.get('helper_name').methode_name('parameters')
 
 the TAL example files for symfony-sandbox are in "src/Neni/PhptalBundle/Resources/doc/sandbox".
 
-Copy them and change in the controller '.html.twig' extension to '.tal.html'.
+Copy them and change in the controller '.html.twig' extension to '.html.tal'.
 
 
 

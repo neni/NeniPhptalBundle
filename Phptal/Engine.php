@@ -15,21 +15,18 @@ use Symfony\Bundle\FrameworkBundle\Templating\Loader\TemplateLocator;
 
 require_once 'PHPTAL.php';
 
-use Neni\PhptalBundle\Phptal\TalHelper;
+use Neni\PhptalBundle\Phptal\GenericHelper;
 
 
 
-class PhptalEngine implements EngineInterface, \PHPTAL_SourceResolver
+class Engine implements EngineInterface, \PHPTAL_SourceResolver
 {
     protected $container;
     protected $parser;
     protected $locator;
     protected $options;
 
-//    protected $encoder;
 
-
-    
     public function __construct(ContainerInterface $container, TemplateNameParserInterface $parser, TemplateLocator $locator, $options)
     {
         $this->container = $container;
@@ -37,29 +34,29 @@ class PhptalEngine implements EngineInterface, \PHPTAL_SourceResolver
         $this->locator   = $locator;
         $this->options   = $options;
     }
-    
+
     /**
      * Find the templates.
      * @param string $name A template name
-     * @return PHPTAL_FileSource 
+     * @return PHPTAL_FileSource
      * @throws \InvalidArgumentException if the template cannot be found
      */
     public function resolve($name)
     {
-       $source = $this->parser->parse($name);
-       try{
-           $file = $this->locator->locate($source);
-       } catch (\InvalidArgumentException $e) {
-           $erreur = $e;
-       }
-       if (false === $file || null === $file) {
-           throw new \InvalidArgumentException(sprintf('The template "%s" does not exist.', $name, 0, null, $erreur));
-       }
-       return new \PHPTAL_FileSource( $file );
+        $source = $this->parser->parse($name);
+        try{
+            $file = $this->locator->locate($source);
+        } catch (\InvalidArgumentException $e) {
+            $erreur = $e;
+        }
+        if (false === $file || null === $file) {
+            throw new \InvalidArgumentException(sprintf('The template "%s" does not exist.', $name, 0, null, $erreur));
+        }
+        return new \PHPTAL_FileSource( $file );
     }
-    
-    
-    
+
+
+
     /**
      * Renders a template.
      * @param string $name       A template name
@@ -78,59 +75,59 @@ class PhptalEngine implements EngineInterface, \PHPTAL_SourceResolver
         $tmpdir = $this->options['cache_dir'];
         if(!is_dir($tmpdir)){mkdir($tmpdir);}
         $template->setPhpCodeDestination($tmpdir);
-        
+
         // code cache durration
         $template->setCacheLifetime( $this->options['cache_lifetime'] );
-        
+
         // encoding
         $template->setEncoding( $this->options['charset'] );
-        
+
         // output mod
-        if($output_format == null){ 
-           $output_format = $this->options['output_mode']; 
+        if($output_format == null){
+            $output_format = $this->options['output_mode'];
         }
         if($output_format=='XHTML'){
             $template->setOutputMode( \PHPTAL::XHTML );
         }elseif($output_format=='HTML5'){
             $template->setOutputMode( \PHPTAL::HTML5 );
-        }elseif($output_format=='XML'){   
+        }elseif($output_format=='XML'){
             $template->setOutputMode( \PHPTAL::XML );
         }else{
-           throw new \InvalidArgumentException('Unsupported output mode '.$output_format);
+            throw new \InvalidArgumentException('Unsupported output mode '.$output_format);
         }
-        
+
         // force reparse (for debug prefilter)
         $template->setForceReparse( $this->options['force_reparse'] );
-        
+
         // debug mode
-        // .... 
-        
+        // ....
+
         // set SourceResolver
         $template->addSourceResolver($this);
-        
-        // set source template 
+
+        // set source template
         $template->setTemplate($name);
-        
+
         // set data
         foreach ($parameters as $k=>$v){
-          $template->$k = $v;
+            $template->$k = $v;
         }
-        
+
         // helper
-        $template->Helper = new TalHelper($this->container);
-        
+        $template->Helper = new genericHelper($this->container);
+
         try{
             $result = $template->execute();
         }catch (PHPTAL_TemplateException $e){
             throw new \InvalidArgumentException($e->getMessage(), $e->getCode(), $e);
         }
-        
-        return $result; 
+
+        return $result;
     }
 
 
-    
-    
+
+
     /**
      * Test if the template exists.
      * @param string $name A template name
@@ -145,9 +142,9 @@ class PhptalEngine implements EngineInterface, \PHPTAL_SourceResolver
         }
         return true;
     }
-    
 
-    
+
+
     /**
      * Test if this class is able to render a template.
      * @param string $name A template name
@@ -158,7 +155,7 @@ class PhptalEngine implements EngineInterface, \PHPTAL_SourceResolver
         return false !== strpos($name, '.tal');
     }
 
-    
+
     /**
      * Renders a view and returns a Response.
      * @param string   $view       The view name
@@ -175,9 +172,9 @@ class PhptalEngine implements EngineInterface, \PHPTAL_SourceResolver
         return $response;
     }
 
-    
-    
-    
-    
-    
+
+
+
+
+
 }

@@ -4,16 +4,15 @@
 	xmlns:tal="http://xml.zope.org/namespaces/tal"
 	xmlns:metal="http://xml.zope.org/namespaces/metal"
 	xmlns:i18n="http://xml.zope.org/namespaces/i18n"
-	xmlns:phptal="http://phptal.org/ns/phptal"
-	metal:define-macro="all">
-	
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>Application (with phptpal)</title>
-    </head>
-    
-    <body>
-		<tal:block metal:define-slot="body"></tal:block>
-    </body>
-    
+	xmlns:phptal="http://phptal.org/ns/phptal" metal:define-macro="all">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Application (with phptpal)</title>
+</head>
+
+<body>
+<tal:block metal:define-slot="body"></tal:block>
+</body>
+
 </html>

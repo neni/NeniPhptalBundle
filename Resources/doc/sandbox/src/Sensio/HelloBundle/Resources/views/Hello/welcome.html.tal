@@ -1,5 +1,4 @@
-<tal:block
-	xmlns="http://www.w3.org/1999/xhtml"
+<tal:block xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:tal="http://xml.zope.org/namespaces/tal"
 	xmlns:metal="http://xml.zope.org/namespaces/metal"
 	xmlns:i18n="http://xml.zope.org/namespaces/i18n"
@@ -7,8 +6,8 @@
 
 	<tal:block metal:use-macro="::base.html.tal/all">
 		<tal:block metal:fill-slot="body">
-        	<h1>Congratulations! (with phptpal)</h1>
-        	<p>You have successfully created a new Symfony application.</p>
+			<h1>Congratulations! (with phptpal)</h1>
+			<p>You have successfully created a new Symfony application.</p>
 		</tal:block>
 	</tal:block>
 
