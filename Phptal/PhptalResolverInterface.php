@@ -2,7 +2,6 @@
 
 namespace Neni\PhptalBundle\Phptal;
 
-//require_once 'PHPTAL.php';
 
 interface PhptalResolverInterface extends \PHPTAL_SourceResolver
 {

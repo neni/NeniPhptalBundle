@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Router;
 
 
-require_once 'PHPTAL.php';
+//require_once 'PHPTAL.php';
 
 use Neni\PhptalBundle\Phptal\PhptalPopulaterInterface;
 use Neni\PhptalBundle\Phptal\PhptalResolverInterface;
@@ -25,15 +25,6 @@ class PhptalEngine implements EngineInterface
     protected $options;
 
 
-/*
-    public function __construct(ContainerInterface $container, $options)
-    {
-        $this->container = $container;
-        $this->resolver = $this->container->get('tal.resolver');
-        $this->populater = $this->container->get('tal.populater');
-        $this->options   = $options;
-    }
-*/
 
     public function __construct(ContainerInterface $container, PhptalResolverInterface $resolver, PhptalPopulaterInterface $populater, $options)
     {

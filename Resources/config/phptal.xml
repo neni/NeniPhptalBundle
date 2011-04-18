@@ -13,14 +13,6 @@
 
 	<services>
 
-<!--
-		<service id="templating.engine.tal" class="%phptal.engine.class%">
-			<tag name="templating.engine" alias="tal" priority="300" />
-			<argument type="service" id="service_container" />
-			<argument>%neni_phptal.options%</argument>
-		</service>
--->
-
 		<service id="templating.engine.tal" class="%phptal.engine.class%">
 			<tag name="templating.engine" alias="tal" priority="300" />
 			<argument type="service" id="service_container" />
@@ -28,12 +20,6 @@
 			<argument type="service" id="tal.populater.default" />
 			<argument>%neni_phptal.options%</argument>
 		</service>
-
-<!--
-		<service id="tal.resolver" class="%phptal.resolver.class%">
-			<argument type="service" id="service_container" />
-		</service>
--->
 
 		<service id="tal.resolver.default" class="%phptal.resolver.class%">
             <argument type="service" id="templating.locator" />

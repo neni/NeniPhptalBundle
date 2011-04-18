@@ -3,7 +3,6 @@
 namespace Neni\PhptalBundle\Phptal;
 
 use Neni\PhptalBundle\Phptal\PhptalResolverInterface;
-//use Symfony\Component\DependencyInjection\ContainerInterface;
 
 use Symfony\Component\Templating\TemplateNameParserInterface;
 use Symfony\Component\Config\FileLocatorInterface;
@@ -15,15 +14,6 @@ class PhptalResolver implements PhptalResolverInterface
 
     protected $parser;
     protected $locator;
-
-
-/*
-    public function __construct(ContainerInterface $container)
-    {
-        $this->parser = $container->get('templating.name_parser');
-        $this->locator = $container->get('templating.locator');
-    }
-*/
 
 
     public function __construct(FileLocatorInterface $locator, TemplateNameParserInterface $parser)
