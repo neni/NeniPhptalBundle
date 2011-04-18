@@ -2,7 +2,7 @@
 
 namespace Neni\PhptalBundle\DependencyInjection;
 
-use Symfony\Component\Config\Definition\Builder\NodeBuilder;
+use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 
 
@@ -16,20 +16,21 @@ class Configuration
     public function getConfigTree()
     {
         $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('tal', 'array');
-
-        $rootNode->scalarNode('cache_warmer')->end();
-
-        $this->addPreFilterSection($rootNode);
-        $this->addPostFilterSection($rootNode);
+        $rootNode = $treeBuilder->root('neni_phptal');
+        $rootNode->children()->scalarNode('cache_warmer')->end()->end();
+        
+        //$this->addPreFilterSection($rootNode);
+        //$this->addPostFilterSection($rootNode);
         $this->addPhptalOptions($rootNode);
 
         return $treeBuilder->buildTree();
     }
 
 
-    private function addPreFilterSection(NodeBuilder $rootNode)
+
+    private function addPreFilterSection(ArrayNodeDefinition $rootNode)
     {
+		/*
         $rootNode
         ->fixXmlConfig('')
         ->arrayNode('pre_filter')
@@ -41,10 +42,12 @@ class Configuration
         ->end()
         ->end()
         ;
+		*/
     }
 
-    private function addPostFilterSection(NodeBuilder $rootNode)
+    private function addPostFilterSection(ArrayNodeDefinition $rootNode)
     {
+		/*
         $rootNode
         ->fixXmlConfig('')
         ->arrayNode('post_filter')
@@ -55,21 +58,24 @@ class Configuration
         ->end()
         ->end()
         ->end();
+		*/
     }
 
-    private function addPhptalOptions(NodeBuilder $rootNode)
+    private function addPhptalOptions(ArrayNodeDefinition $rootNode)
     {
-        $rootNode
-        ->scalarNode('autoescape')->end()
-        ->scalarNode('base_template_class')->end()
-        ->scalarNode('cache_dir')->addDefaultsIfNotSet()->defaultValue('%kernel.cache_dir%/tal')->end()
-        ->scalarNode('cache_lifetime')->addDefaultsIfNotSet()->defaultValue(30)->end()
-        ->scalarNode('charset')->addDefaultsIfNotSet()->defaultValue('%kernel.charset%')->end()
-        ->scalarNode('output_mode')->addDefaultsIfNotSet()->defaultValue('XHTML')->end()
-        ->scalarNode('debug')->addDefaultsIfNotSet()->defaultValue('%kernel.debug%')->end()
-        ->scalarNode('force_reparse')->addDefaultsIfNotSet()->defaultValue(false)->end()
-        ->scalarNode('strict_variables')->end()
-        ->scalarNode('auto_reload')->end();
+        $rootNode->children()
+            ->scalarNode('autoescape')->end()
+            ->scalarNode('base_template_class')->end()
+            ->scalarNode('cache_dir')->defaultValue('%kernel.cache_dir%/tal')->end()
+            ->scalarNode('cache_lifetime')->defaultValue(30)->end()
+            ->scalarNode('charset')->defaultValue('%kernel.charset%')->end()
+            ->scalarNode('output_mode')->defaultValue('XHTML')->end()
+            ->scalarNode('debug')->defaultValue('%kernel.debug%')->end()
+            ->booleanNode('force_reparse')->defaultValue(false)->end()
+            ->scalarNode('site_path')->defaultValue('%kernel.root_dir%/../web')->end()
+            ->booleanNode('annotation')->defaultValue(false)->end()
+            ->scalarNode('strict_variables')->end()
+            ->scalarNode('auto_reload')->end();
     }
     
 }

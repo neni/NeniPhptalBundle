@@ -5,21 +5,47 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
 	<parameters>
-		<parameter key="neni_phptal.engine.class">Neni\PhptalBundle\Phptal\Engine</parameter>
-		<parameter key="neni_phptal.helper.class">Neni\PhptalBundle\Phptal\GenericHelper</parameter>
+		<parameter key="phptal.engine.class">Neni\PhptalBundle\Phptal\PhptalEngine</parameter>
+		<parameter key="phptal.resolver.class">Neni\PhptalBundle\Phptal\PhptalResolver</parameter>
+		<parameter key="phptal.populater.class">Neni\PhptalBundle\Phptal\PhptalPopulater</parameter>
+		<parameter key="phptal.helper.class">Neni\PhptalBundle\Phptal\Helper\PhptalGenericHelper</parameter>
 	</parameters>
 
 	<services>
 
-		<service id="templating.engine.tal" class="%neni_phptal.engine.class%">
+<!--
+		<service id="templating.engine.tal" class="%phptal.engine.class%">
 			<tag name="templating.engine" alias="tal" priority="300" />
 			<argument type="service" id="service_container" />
-			<argument type="service" id="templating.name_parser" />
-			<argument type="service" id="templating.locator" />
+			<argument>%neni_phptal.options%</argument>
+		</service>
+-->
+
+		<service id="templating.engine.tal" class="%phptal.engine.class%">
+			<tag name="templating.engine" alias="tal" priority="300" />
+			<argument type="service" id="service_container" />
+			<argument type="service" id="tal.resolver.default" />
+			<argument type="service" id="tal.populater.default" />
 			<argument>%neni_phptal.options%</argument>
 		</service>
 
-		<service id="tal.helper.helper" class="%neni_phptal.helper.class%">
+<!--
+		<service id="tal.resolver" class="%phptal.resolver.class%">
+			<argument type="service" id="service_container" />
+		</service>
+-->
+
+		<service id="tal.resolver.default" class="%phptal.resolver.class%">
+            <argument type="service" id="templating.locator" />
+            <argument type="service" id="templating.name_parser" />
+		</service>
+
+		<service id="tal.populater.default" class="%phptal.populater.class%">
+			<argument type="service" id="service_container" />
+			<!-- <argument type="service" id="templating.globals" /> -->
+		</service>
+
+		<service id="tal.helper.helper" class="%phptal.helper.class%">
 			<tag name="templating.helper" alias="talhelper" />
 			<argument type="service" id="service_container" />
 		</service>

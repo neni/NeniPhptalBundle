@@ -43,19 +43,17 @@ class NeniPhptalExtension implements ExtensionInterface
             }
         }
 
-        /*
-        // à quoi cela sert?
-        if (!empty($config['cache_warmer'])) {
-            $container->getDefinition('templating.cache_warmer.templates_cache')->addTag('kernel.cache_warmer');
-        }
-		*/
-        
-        /*
-         unset(
-         );
-         */
 
         $container->setParameter('neni_phptal.options', $config);
+
+
+        // annotation
+        if($config['annotation']){
+            $loader->load('annotation.xml');
+        }
+
+        // helper
+        $loader->load('phptalHelpers.xml');
 
         /*
          $this->addClassesToCompile(array(
@@ -63,6 +61,7 @@ class NeniPhptalExtension implements ExtensionInterface
          'Neni\\PhptalBundle\\Phptal\\TalHelper'
          ));
          */
+       
 
     }
 
