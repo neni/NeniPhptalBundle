@@ -10,8 +10,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Router;
 
 
-//require_once 'PHPTAL.php';
-
 use Neni\PhptalBundle\Phptal\PhptalPopulaterInterface;
 use Neni\PhptalBundle\Phptal\PhptalResolverInterface;
 use Neni\PhptalBundle\Phptal\Helper\PhptalGenericHelper;
@@ -87,8 +85,17 @@ class PhptalEngine implements EngineInterface
         $template->setForceReparse( (isset($options['force_reparse']))?$options['force_reparse']:$this->options['force_reparse'] );
 
 
-        // filters
+        // pre filters
+        $filtres = $this->options['pre_filters'];
+        foreach($filtres as $filtre){
+            $template->addPreFilter( new $filtre['class']($filtre['params']) );
+        }
 
+        // post filters
+        $filtres = $this->options['post_filters'];
+        if($filtres){
+            $template->setPostFilter(new PhptalPostFilters($filtres));
+        }
 
         // set SourceResolver
         if(!isset($options['resolver'])){

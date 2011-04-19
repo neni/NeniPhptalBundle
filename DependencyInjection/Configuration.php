@@ -19,8 +19,8 @@ class Configuration
         $rootNode = $treeBuilder->root('neni_phptal');
         $rootNode->children()->scalarNode('cache_warmer')->end()->end();
         
-        //$this->addPreFilterSection($rootNode);
-        //$this->addPostFilterSection($rootNode);
+        $this->addPreFilterSection($rootNode);
+        $this->addPostFilterSection($rootNode);
         $this->addPhptalOptions($rootNode);
 
         return $treeBuilder->buildTree();
@@ -29,36 +29,55 @@ class Configuration
 
 
     private function addPreFilterSection(ArrayNodeDefinition $rootNode)
-    {
-		/*
+    {		
         $rootNode
-        ->fixXmlConfig('')
-        ->arrayNode('pre_filter')
-        ->prototype('scalar')
-        ->beforeNormalization()
-        ->ifTrue(function($v) { return is_array($v) && isset($v['id']); })
-        ->then(function($v){ return $v['id']; })
-        ->end()
-        ->end()
-        ->end()
-        ;
-		*/
+            ->fixXmlConfig('pre_filter')
+            ->children()
+                ->arrayNode('pre_filters')
+                    ->canBeUnset()
+                    ->useAttributeAsKey('name')
+                    ->prototype('array')    
+                        ->fixXmlConfig('param')
+                        ->children()
+                             ->scalarNode('class')->end()
+                             ->arrayNode('params')
+                                ->beforeNormalization()
+                                   ->ifTrue(function($v){ return !is_array($v); })
+                                   ->then(function($v){ return array($v); })
+                                ->end()
+                                ->prototype('scalar')->end()
+                            ->end()
+                        ->end()
+                    ->end()
+                ->end()
+            ->end()
+        ->end();	
     }
 
     private function addPostFilterSection(ArrayNodeDefinition $rootNode)
     {
-		/*
         $rootNode
-        ->fixXmlConfig('')
-        ->arrayNode('post_filter')
-        ->prototype('scalar')
-        ->beforeNormalization()
-        ->ifTrue(function($v) { return is_array($v) && isset($v['id']); })
-        ->then(function($v){ return $v['id']; })
-        ->end()
-        ->end()
-        ->end();
-		*/
+            ->fixXmlConfig('post_filter')
+            ->children()
+                ->arrayNode('post_filters')
+                    ->canBeUnset()
+                    ->useAttributeAsKey('name')
+                    ->prototype('array')    
+                        ->fixXmlConfig('param')
+                        ->children()
+                             ->scalarNode('class')->end()
+                             ->arrayNode('params')
+                                ->beforeNormalization()
+                                   ->ifTrue(function($v){ return !is_array($v); })
+                                   ->then(function($v){ return array($v); })
+                                ->end()
+                                ->prototype('scalar')->end()
+                            ->end()
+                        ->end()
+                    ->end()
+                ->end()
+            ->end()
+        ->end();	
     }
 
     private function addPhptalOptions(ArrayNodeDefinition $rootNode)

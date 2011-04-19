@@ -49,7 +49,7 @@ class NeniPhptalExtension implements ExtensionInterface
 
         // annotation
         if($config['annotation']){
-            $loader->load('annotation.xml');
+            $loader->load('annotation_tal.xml');
         }
 
         // helper

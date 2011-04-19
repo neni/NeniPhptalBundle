@@ -51,12 +51,14 @@ class TalListener
             return;
         }
 
+
         if (!$configuration->getTemplate()) {
-            $configuration->setTemplate($this->guessTemplateName($controller, $request));
+            $configuration->setTemplate($this->guessTemplateName($controller, $request, $configuration->getExtension() ));
         }
 
         $request->attributes->set('_tal', $configuration->getTemplate());
         $request->attributes->set('_tal_vars', $configuration->getVars());
+        //$request->attributes->set('_tal_extension', $configuration->getExtension());
 
 
         // all controller method arguments
@@ -115,7 +117,7 @@ class TalListener
      * @param Request $request A Request instance
      * @throws \InvalidArgumentException
      */
-    protected function guessTemplateName($controller, Request $request)
+    protected function guessTemplateName($controller, Request $request, $ext)
     {
         if (!preg_match('/Controller\\\(.*)Controller$/', get_class($controller[0]), $match)) {
             throw new \InvalidArgumentException(sprintf('The "%s" class does not look like a controller class (it does not end with Controller)', get_class($controller[0])));
@@ -125,7 +127,7 @@ class TalListener
 
         $name = $match[1].':'.substr($controller[1], 0, -6);
 
-        return $bundle->getName().':'.$name.'.'.$request->getRequestFormat().'.tal';
+        return $bundle->getName().':'.$name.'.'.$request->getRequestFormat().$ext; //.'.tal';
     }
 
     /**

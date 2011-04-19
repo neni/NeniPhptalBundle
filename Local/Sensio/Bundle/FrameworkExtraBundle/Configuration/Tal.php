@@ -27,6 +27,10 @@ class Tal implements ConfigurationInterface
      */
     protected $vars = array();
 
+
+    protected $extension;
+
+
     /**
      * Returns the array of templates variables.
      *
@@ -75,6 +79,16 @@ class Tal implements ConfigurationInterface
     public function setTemplate($template)
     {
         $this->template = $template;
+    }
+
+
+    public function setExtension($ext)
+    {
+        $this->extension = $ext;
+    }
+    public function getExtension()
+    {
+        return ($this->extension)?$this->extension:'.tal';
     }
 
 

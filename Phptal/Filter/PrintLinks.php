@@ -7,9 +7,8 @@
 
 namespace Neni\PhptalBundle\Phptal\Filter;
 
-require_once 'PHPTAL\Filter.php';
 
-class PhptalFilterPrintLinks implements \PHPTAL_Filter
+class PrintLinks implements \PHPTAL_Filter
 {
     protected $_link_list = '';
 

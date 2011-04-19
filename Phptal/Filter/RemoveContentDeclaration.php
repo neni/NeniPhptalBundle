@@ -35,11 +35,13 @@
 
 namespace Neni\PhptalBundle\Phptal\Filtre;
 
-class PhptalFilterRemoveContentDeclaration implements \PHPTAL_Filter {
-    public function filter($xhtml) {
+class RemoveContentDeclaration implements \PHPTAL_Filter {
 
+
+    public function filter($xhtml) {
         $xhtml = preg_replace('/<meta[\s]+(.*)content-type[^>]+>/ie', '', $xhtml, 1);
         return $xhtml;
     }
+
 }
 

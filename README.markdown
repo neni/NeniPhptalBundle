@@ -5,7 +5,7 @@ Renderer TAL in Symfony2 with [PHPTAL](http://phptal.org/).
 
 
 
-## Installation
+## INSTALLATION
 
 
 
@@ -69,7 +69,7 @@ change in the configuration file ("app/config/config.yml")
 
        framework:
              # ...
-             templating: { engines: ['phptal', 'twig', 'php'] }
+             templating: { engines: ['tal', 'twig', 'php'] }
              #...
 
 
@@ -80,19 +80,24 @@ change in the configuration file ("app/config/config.yml")
              #cache_dir: 		"%kernel.cache_dir%/phptal"  # cache location
              #cache_lifetime: 30                           # cache life time in days
              #force_reparse:  false                        # force reparse (for debugging pre_filter)
-             # Configuration for filters
-             #pre_filter:
-             #     remove_comment:    [ class:"Neni\PhptalBundle\Phptal\Filter\RemoveComment" ]
-             #     remove_whitespace: [ class:"Neni\PhptalBundle\Phptal\Filter\RemovewhiteSpace" ]
-             #     replace_toto_titi: [ class:"Neni\PhptalBundle\Phptal\Filter\ReplaceString", arguments:['toto','titi'] ]
-             #post_filter:
-             #     replace_tata_tutu: [ class:"Neni\PhptalBundle\Phptal\Filter\ReplaceString", arguments:['tata','tutu'] ]
-             #     replace_tutu_tyty: [ class:"Neni\PhptalBundle\Phptal\Filter\ReplaceString", arguments:['tutu','tyty'] ]
              #annotation: true
+             #pre_filters:
+             #   replace_text:
+             #        class: "Neni\\PhptalBundle\\Phptal\\Filter\\ReplaceString"
+             #        params: ["grenouille", "sauterelle"]
+             #   replace_another_text:
+             #        class: "Neni\\PhptalBundle\\Phptal\\Filter\\ReplaceString"
+             #        params: ["bleue", "rouge"]
+             #   remove_comment: 
+             #        class: "Neni\\PhptalBundle\\Phptal\\Filter\\RemoveComments"
+             #post_filters:
+             #    replace_text:
+             #        class: "Neni\\PhptalBundle\\Phptal\\Filter\\ReplaceString"
+             #        params: ["sauterelle", "souris"]
 
 
 
-## Usage
+## USAGE
 
 the template extension is '.tal' and you can call it in controllers like this
 
@@ -120,9 +125,10 @@ for helpers, use syntax php:Helper.get('helper_name').methode_name('parameters')
 
 
 
-## To do
+## TODO
 
 - verify annotation
+- verify filters
 - make tests suite
 - improve documentation
 
