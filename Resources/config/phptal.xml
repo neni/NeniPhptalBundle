@@ -28,7 +28,7 @@
 
 		<service id="tal.populater.default" class="%phptal.populater.class%">
 			<argument type="service" id="service_container" />
-			<!-- <argument type="service" id="templating.globals" /> -->
+			<argument type="service" id="templating.globals" />
 		</service>
 
 		<service id="tal.helper.helper" class="%phptal.helper.class%">
