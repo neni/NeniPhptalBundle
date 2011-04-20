@@ -139,7 +139,7 @@ class PhptalEngine implements EngineInterface
 
 
         // generic helper
-        $template->Helper = new PhptalGenericHelper($this->container);
+        $template->Helper = new PhptalGenericHelper($this->container, $parameters);
 
         // perform
         try{

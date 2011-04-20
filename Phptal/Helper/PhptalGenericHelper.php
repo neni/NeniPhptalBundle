@@ -10,10 +10,12 @@ class PhptalGenericHelper extends Helper
 {
 
     protected $container;
+    protected $data;
 
-    public function __construct(ContainerInterface $container)
+    public function __construct(ContainerInterface $container, $data=null)
     {
         $this->container = $container;
+        $this->data = $data;
     }
 
     // TODO: make cleaner?
@@ -41,6 +43,12 @@ class PhptalGenericHelper extends Helper
             // not found
             throw new \InvalidArgumentException(sprintf('The helper "%s" does not exist.', $name));
         }
+    }
+
+    /* render a template */
+    public function render($name)
+    {
+        return $this->container->get('templating')->render($name, $this->data);
     }
 
 

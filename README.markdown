@@ -122,6 +122,10 @@ for helpers, use syntax php:Helper.get('helper_name').methode_name('parameters')
     <img tal:attributes="src php:Helper.get('assets').getUrl('bundles/test/img/logo.png')" src="../../public/img/logo.png" alt="logo" />
 
 
+for render another template (tal, twig or php)
+
+    <tal:block tal:content="structure php:Helper.render('FOSUserBundle:User:new_content.html.twig')" />
+
 
 
 
@@ -129,6 +133,7 @@ for helpers, use syntax php:Helper.get('helper_name').methode_name('parameters')
 
 - verify annotation
 - verify filters
+- add prefilter for simplify usage of hepers
 - make tests suite
 - improve documentation
 
