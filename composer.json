@@ -1,0 +1,12 @@
+{
+    "name": "neni/phptal-bundle",
+    "description": "Renderer TAL in Symfony2 with PHPTAL.",
+    "require": {
+        "phptal/phptal": "*@dev"
+    },
+    "autoload": {
+        "psr-4": {
+            "Neni\\PhptalBundle\\": ""
+        }
+    }
+}
