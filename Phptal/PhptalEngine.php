@@ -78,7 +78,7 @@ class PhptalEngine implements EngineInterface
         }elseif($options['output_format']=='XML'){
             $template->setOutputMode( \PHPTAL::XML );
         }else{
-            throw new \InvalidArgumentException('Unsupported output mode '.$output_format);
+            throw new \InvalidArgumentException('Unsupported output mode ' . $options['output_format']);
         }
 
         // force reparse (for debug prefilter)
