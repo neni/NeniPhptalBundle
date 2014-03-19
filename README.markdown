@@ -3,50 +3,22 @@ NeniPhptalBundle
 
 Renderer TAL in Symfony2 with [PHPTAL](http://phptal.org/).
 
-
-
 ## INSTALLATION
 
+### 1. Install via composer
 
-
-### 1. Add this bundle to your project
-
-        $ git clone git://github.com/neni/NeniPhptalBundle.git vendor/bundles/Neni/PhptalBundle
-
-or as submodule
-
-        $ git submodule add git://github.com/neni/NeniPhptalBundle.git vendor/bundles/Neni/PhptalBundle
-        $ git submodule update --init
+        $ composer require neni/phptal-bundle
         
+As there are no tags yet, you probably want to require the "*@dev" version. The neni/phptal-bundle itself has a *@dev dependency on phptal - this may conflict with the minimum stability settings of your project. If so, you probably want to
 
-### 2. Install PHPTal
-
-if PHPTal is not installed
-
-        $ git svn clone https://svn.motion-twin.com/phptal/trunk vendor/Phptal-svn
-
-
-_it is not possible to add a SVN repository as submodule (or I do not know how to make this)._
+        $ composer require phptal/phptal
+        
+with the "*@dev" version manually to resolve this conflict.
 
 
-### 3. Add the bundle to your application kernel:
+### 2. Add bundle to application kernel
 
-add in file "app/autoload.php"
-
-        $loader->registerNamespaces(array(
-             // if use of Sensio's FrameworkExtraBundle (annotation with @extra:Tal)
-             'Sensio' => array(
-                            __DIR__.'/../vendor/bundles',
-                            __DIR__.'/../vendor/bundles/Neni/PhptalBundle/Local'
-                       ),
-            
-             // ...
-        '    Neni' => __DIR__.'/../vendor/bundles',
-             // ...
-        ));
-
-
-add in file "app/AppKernel.php"
+Add in file "app/AppKernel.php":
 
         public function registerBundles()
         {
@@ -63,8 +35,6 @@ add in file "app/AppKernel.php"
            // ...
         ));
         
-
-
 change in the configuration file ("app/config/config.yml")
 
        framework:
