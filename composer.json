@@ -1,6 +1,7 @@
 {
     "name": "neni/phptal-bundle",
     "description": "Renderer TAL in Symfony2 with PHPTAL.",
+    "version":"dev-master",
     "require": {
         "phptal/phptal": "*@dev",
         "symfony/symfony": "~2.3"
