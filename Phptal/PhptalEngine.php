@@ -78,7 +78,7 @@ class PhptalEngine implements EngineInterface
         }elseif($options['output_format']=='XML'){
             $template->setOutputMode( \PHPTAL::XML );
         }else{
-            throw new \InvalidArgumentException('Unsupported output mode '.$output_format);
+            throw new \InvalidArgumentException('Unsupported output mode ' . $options['output_format']);
         }
 
         // force reparse (for debug prefilter)
@@ -186,15 +186,9 @@ class PhptalEngine implements EngineInterface
     public function renderResponse($view, array $parameters = array(), Response $response = null )
     {
         if (null === $response) {
-            $response = $this->container->get('response');
+            $response = new Response();
         }
         $response->setContent($this->render($view, $parameters));
         return $response;
     }
-
-
-
-
-
-
 }

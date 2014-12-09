@@ -30,6 +30,15 @@ class Tal implements ConfigurationInterface
 
     protected $extension;
 
+    /**
+     * Returns whether multiple annotations of this type are allowed
+     *
+     * @return Boolean
+     */
+    function allowArray()
+    {
+        return false;
+    }
 
     /**
      * Returns the array of templates variables.
